@@ -167,6 +167,7 @@ class Woocommerce_Order_On_Whatsapp {
 		$this->loader->add_action( 'woocommerce_settings_tabs', $plugin_admin, 'woow_add_settings_tab' );
 		$this->loader->add_action( 'woocommerce_settings_tabs_woow_settings_tab', $plugin_admin, 'woow_settings_tab' );
 		$this->loader->add_action( 'woocommerce_update_options_woow_settings_tab', $plugin_admin, 'woow_update_settings' );
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'woow_connect_settings_page', 20 );
 
 		$this->loader->add_action('admin_footer', $plugin_admin, 'woow_uninstall_feedback');
 	}

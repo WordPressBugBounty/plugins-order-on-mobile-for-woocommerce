@@ -74,6 +74,43 @@ class Woocommerce_Order_On_Whatsapp_Public {
 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/woocommerce-order-on-whatsapp-public.css', array(), $this->version, 'all' );
 
+		/**
+		 * The "Hide Add to Cart" / "Hide Proceed to Checkout" options above
+		 * only remove the classic template hooks (woocommerce_after_shop_loop_item,
+		 * woocommerce_single_product_summary, woocommerce_proceed_to_checkout).
+		 * Sites using the WooCommerce Cart/Checkout blocks or block-based
+		 * Shop/Single Product templates render those buttons directly as
+		 * blocks and never fire those hooks, so the buttons stay visible.
+		 * This CSS covers both the classic and block markup as a fallback.
+		 */
+		$inline_css = '';
+
+		if ( get_option( 'woow_hide_add_to_cart' ) == 'yes' && ( is_shop() || is_product_taxonomy() || is_product() ) ) {
+			$inline_css .= '
+				.add_to_cart_button,
+				.single_add_to_cart_button,
+				.wc-block-components-product-button,
+				.wp-block-woocommerce-product-button,
+				.wp-block-add-to-cart-form,
+				.wc-block-add-to-cart-form {
+					display: none !important;
+				}
+			';
+		}
+
+		if ( get_option( 'woow_hide_proceed_to_checkout' ) == 'yes' && is_cart() ) {
+			$inline_css .= '
+				.wc-proceed-to-checkout .checkout-button,
+				.wp-block-woocommerce-proceed-to-checkout-block {
+					display: none !important;
+				}
+			';
+		}
+
+		if ( $inline_css ) {
+			wp_add_inline_style( $this->plugin_name, $inline_css );
+		}
+
 	}
 
 	/**

@@ -8,9 +8,9 @@
  * Plugin Name:       Order On Mobile for WooCommerce
  * Plugin URI:        https://www.intolap.com/product/order-on-mobile-for-woocommerce-pro/
  * Description:       This plugin enables store owners to receive orders on WhatsApp. It enables a Order on WhatsApp button which is displayed on the Shop, Single product, Cart pages.
- * Version:           2.2
- * WC requires at least: 9
- * WC tested up to: 9
+ * Version:           2.3
+ * WC requires at least: 10.9
+ * WC tested up to: 10.9
  * Author:            INTOLAP
  * Author URI:        http://www.intolap.com/
  * License:           GPL-2.0+
@@ -27,7 +27,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Currently plugin version.
  */
-define( 'WOOCOMMERCE_ORDER_ON_WHATSAPP_VERSION', '2.2' );
+define( 'WOOCOMMERCE_ORDER_ON_WHATSAPP_VERSION', '2.3' );
 
 /**
  * The code that runs during plugin activation.
@@ -72,3 +72,10 @@ function run_woocommerce_order_on_whatsapp() {
 
 }
 run_woocommerce_order_on_whatsapp();
+
+
+add_action( 'before_woocommerce_init', function() {
+    if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+        \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+    }
+} );

@@ -2,13 +2,12 @@
 Contributors: intolap
 Donate link: https://pages.razorpay.com/intolap
 Tags: woocommerce, whatsapp, products, order, wordpress, woocommerce whatsapp, whatsapp order woocommerce
-Requires at least: 6.5
-Tested up to: 6.5
-WC requires at least: 9
-WC tested up to: 9
-Requires PHP: 7.4
+Requires at least: 7.0
+Tested up to: 7.0
+WC requires at least: 10.9
+WC tested up to: 10.9
+Requires PHP: 7.9
 Stable tag: trunk
-Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -186,6 +185,9 @@ Yes, you can do this from admin panel in PRO version.
 [Click Here for more details](https://intolap.com/product/stripe-pay-now/)
 
 == Changelog ==
+
+= 2.3 =
+* Compatibility with latest woocommerce nd wordpress.
 
 = 2.2 =
 * Fixed issue in the plugin review notification widget.

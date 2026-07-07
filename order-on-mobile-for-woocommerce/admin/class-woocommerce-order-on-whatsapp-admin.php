@@ -135,9 +135,40 @@ class Woocommerce_Order_On_Whatsapp_Admin {
 
 
 	/* Coding for Woocmmerce Custom Setting tabs */
-    public static function woow_add_settings_tab() {  
+    public static function woow_add_settings_tab() {
 	   $current_tab = ( isset($_GET['tab']) && $_GET['tab'] == 'woow_settings_tab' ) ? 'nav-tab-active' : '';
 	   echo '<a href="'.admin_url().'admin.php?page=wc-settings&amp;tab=woow_settings_tab" class="nav-tab '.$current_tab.'">'.__( "Woocommerce Order On Whatsapp", "woocommerce-order-on-whatsapp" ).'</a>';
+    }
+
+    /**
+     * Registers our custom settings tab with WC Admin's page/breadcrumb
+     * registry. Without this, WooCommerce core's connect-existing-pages.php
+     * looks up the "woow_settings_tab" tab in its own hardcoded list of
+     * built-in tabs, doesn't find it, and throws an "Undefined array key"
+     * error when building breadcrumbs for our settings page.
+     */
+    public static function woow_connect_settings_page() {
+        if ( ! function_exists( 'wc_admin_connect_page' ) ) {
+            return;
+        }
+
+        wc_admin_connect_page(
+            array(
+                'id'        => 'woocommerce-settings-woow-settings-tab',
+                'screen_id' => 'woocommerce_page_wc-settings-woow_settings_tab',
+                'title'     => array(
+                    __( 'Settings', 'woocommerce-order-on-whatsapp' ),
+                    __( 'Woocommerce Order On Whatsapp', 'woocommerce-order-on-whatsapp' ),
+                ),
+                'path'      => add_query_arg(
+                    array(
+                        'page' => 'wc-settings',
+                        'tab'  => 'woow_settings_tab',
+                    ),
+                    'admin.php'
+                ),
+            )
+        );
     }
 
     /* Coding for Woocmmerce Custom Setting tabs */
